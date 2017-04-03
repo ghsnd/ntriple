@@ -1,0 +1,8 @@
+[package]
+name = "ntstream"
+version = "0.1.0"
+authors = ["Gerald Haesendonck <gerald.haesendonck@ugent.be>"]
+build = "build.rs"
+
+[build-dependencies]
+peg = { version = "0.5" }
