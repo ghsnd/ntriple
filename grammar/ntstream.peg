@@ -1,5 +1,10 @@
 use std::char::from_u32;
-use super::{Literal, TypeLang};
+use super::{Literal, TypeLang, Predicate};
+
+#[pub]
+//[4]
+predicate -> Predicate
+	= iri: IRIREF {	Predicate::IriRef(iri) }
 
 #[pub]
 //[6]

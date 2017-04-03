@@ -1,4 +1,10 @@
 mod ntstream {
+
+	#[derive(Debug)]
+	pub enum Predicate {
+		IriRef(String)
+	}
+
 	#[derive(Debug)]
 	pub enum TypeLang {
 		Lang(String),
@@ -30,6 +36,7 @@ mod ntstream {
 #[cfg(test)]
 mod tests {
 	use ntstream::Literal;
+	use ntstream::Predicate::{self, IriRef};
 	use ntstream::TypeLang::{self, Lang, Type};
 	use ntstream::parser::*;
 
@@ -83,5 +90,16 @@ mod tests {
 			&Type(ref tipe) => tipe == "http://example.org/some_type",
 			_ => false
 		};
+		assert_eq!(matches, true);
+	}
+
+	#[test]
+	fn test_predicate() {
+		let predicate: Predicate = predicate("<http://example.org/predicate>").unwrap();
+		let matches = match predicate {
+			IriRef(iri) => iri == "http://example.org/predicate",
+			_ => false
+		};
+		assert_eq!(matches, true);
 	}
 }
