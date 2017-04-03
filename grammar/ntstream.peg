@@ -14,7 +14,7 @@ literal -> Literal
 	}
 
 // intermediate rule to determine the data type or the language
-type_lang -> TypeLang<String>
+type_lang -> TypeLang
 	= '^^' iri: IRIREF { TypeLang::Type(iri) }
 	/ lang: LANGTAG { TypeLang::Lang(lang) }
 

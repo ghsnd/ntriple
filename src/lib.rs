@@ -1,6 +1,6 @@
 mod ntstream {
 	#[derive(Debug)]
-	pub enum TypeLang<String> {
+	pub enum TypeLang {
 		Lang(String),
 		Type(String)
 	}
@@ -8,7 +8,7 @@ mod ntstream {
 	#[derive(Debug)]
 	pub struct Literal {
 		data: String,
-		data_type: TypeLang<String>
+		data_type: TypeLang
 	}
 
 	impl Literal {
@@ -16,7 +16,7 @@ mod ntstream {
 			&self.data
 		}
 
-		pub fn get_type(&self) -> &TypeLang<String> {
+		pub fn get_type(&self) -> &TypeLang {
 			&self.data_type
 		}
 
@@ -26,11 +26,6 @@ mod ntstream {
 		include!(concat!(env!("OUT_DIR"), "/ntstream.rs"));
 	}
 }
-
-/*pub enum TypeLang<String> {
-	Lang(String),
-	Type(String)
-}*/
 
 #[cfg(test)]
 mod tests {
@@ -72,7 +67,7 @@ mod tests {
 	fn test_literal() {
 		let literal1: Literal = literal("\"This has a language tag\"@en-gb").unwrap();
 		assert_eq!(literal1.get_data(), "This has a language tag");
-		let type_lang: &TypeLang<String> = literal1.get_type();
+		let type_lang: &TypeLang = literal1.get_type();
 		println!("type: {:?}", type_lang);
 		//if let Lang("en
 		let matches = match type_lang {
@@ -83,7 +78,7 @@ mod tests {
 
 		let literal2 = literal("\"This has a type tag\"^^<http://example.org/some_type>").unwrap();
 		assert_eq!(literal2.get_data(), "This has a type tag");
-		let type_lang2: &TypeLang<String> = literal2.get_type();
+		let type_lang2: &TypeLang = literal2.get_type();
 		let matches = match type_lang2 {
 			&Type(ref tipe) => tipe == "http://example.org/some_type",
 			_ => false
