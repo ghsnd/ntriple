@@ -1,3 +1,5 @@
+// Parsing is based on https://www.w3.org/TR/n-triples/#n-triples-grammar
+
 use std::char::from_u32;
 use super::{Literal, TypeLang, Predicate, Subject, Object, Triple};
 
