@@ -131,4 +131,43 @@ mod tests {
 		println!("{:?}", triple);
 	}
 
+	#[test]
+	fn test_triple_line_triple() {
+		let triple_option = triple_line("_:subject <http://example.org/predicate> \"object\".").unwrap();
+		let matches = match triple_option {
+			Some(_) => true,
+			None => false
+		};
+		assert_eq!(matches, true);
+	}
+
+	#[test]
+	fn test_triple_line_comment() {
+		let triple_option = triple_line(" # this is a nice comment").unwrap();
+		let matches = match triple_option {
+			Some(_) => false,
+			None => true
+		};
+		assert_eq!(matches, true);
+	}
+
+	#[test]
+	fn test_triple_line_empty() {
+		let triple_option = triple_line("").unwrap();
+		let matches = match triple_option {
+			Some(_) => false,
+			None => true
+		};
+		assert_eq!(matches, true);
+	}
+
+		#[test]
+	fn test_triple_line_whitespaces() {
+		let triple_option = triple_line("\t \t").unwrap();
+		let matches = match triple_option {
+			Some(_) => false,
+			None => true
+		};
+		assert_eq!(matches, true);
+	}
 }

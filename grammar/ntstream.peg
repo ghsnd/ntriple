@@ -2,6 +2,12 @@ use std::char::from_u32;
 use super::{Literal, TypeLang, Predicate, Subject, Object, Triple};
 
 #[pub]
+// added
+triple_line -> Option<Triple>
+	= t: triple { Some(t) }
+	/ WS* COMMENT? { None }
+
+#[pub]
 //[2]
 triple -> Triple
 	= WS* s: subject WS* p: predicate WS* o: object WS* '.' WS* COMMENT? { Triple {subject: s, predicate: p, object: o} }
