@@ -1,4 +1,12 @@
-mod ntstream {
+pub mod ntstream {
+
+	#[derive(Debug)]
+	pub struct Triple {
+		subject: Subject,
+		predicate: Predicate,
+		object: Object
+	}
+
 
 	#[derive(Debug)]
 	pub enum Subject {

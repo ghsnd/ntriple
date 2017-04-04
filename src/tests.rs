@@ -1,9 +1,6 @@
 #[cfg(test)]
 mod tests {
-	use ntstream::Literal;
-	use ntstream::Predicate;
-	use ntstream::Subject;
-	use ntstream::Object;
+	use ntstream::{Literal, Predicate, Subject, Object, Triple};
 	use ntstream::TypeLang::{self, Lang, Type};
 	use ntstream::parser::*;
 
@@ -126,6 +123,12 @@ mod tests {
 			_ => false
 		};
 		assert_eq!(matches, true);
+	}
+
+	#[test]
+	fn test_triple() {
+		let triple: Triple = triple("<http://dbpedia.org/resource/Algeria> <http://www.w3.org/2000/01/rdf-schema#comment> \"Algeria (Arabic: الجزائر<\\u200E> al-Jazā'ir; Berber: ⵍⵣⵣⴰⵢⴻⵔ Dzayer), officially People's Democratic Republic of Algeria\"@en . # some comments").unwrap();
+		println!("{:?}", triple);
 	}
 
 }
