@@ -1,5 +1,11 @@
 use std::char::from_u32;
-use super::{Literal, TypeLang, Predicate};
+use super::{Literal, TypeLang, Predicate, Subject};
+
+#[pub]
+//[3]
+subject -> Subject
+	= iri: IRIREF { Subject::IriRef(iri) }
+	/ bnode: BLANK_NODE_LABEL { Subject::BlankNode(String::from(bnode)) }
 
 #[pub]
 //[4]
@@ -50,7 +56,7 @@ STRING_LITERAL_QUOTE -> String
 //[141s]
 BLANK_NODE_LABEL -> &'input str
 	//= match_str: $('_:' (PN_CHARS_U / [0-9]) ((PN_CHARS / '.')* PN_CHARS)? ) { match_str }
-	= match_str: $('_:' (PN_CHARS_U / [0-9]) (PN_CHARS / '.')* ) { match_str }	// TODO: this is wrong, but how to solve?
+	= '_:' bnode_label: $((PN_CHARS_U / [0-9]) (PN_CHARS / '.')* ) { bnode_label }	// TODO: this is wrong, but how to solve?
 
 
 

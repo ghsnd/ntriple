@@ -1,6 +1,12 @@
 mod ntstream {
 
 	#[derive(Debug)]
+	pub enum Subject {
+		IriRef(String),
+		BlankNode(String)
+	}
+
+	#[derive(Debug)]
 	pub enum Predicate {
 		IriRef(String)
 	}
@@ -36,7 +42,8 @@ mod ntstream {
 #[cfg(test)]
 mod tests {
 	use ntstream::Literal;
-	use ntstream::Predicate::{self, IriRef};
+	use ntstream::Predicate;
+	use ntstream::Subject;
 	use ntstream::TypeLang::{self, Lang, Type};
 	use ntstream::parser::*;
 
@@ -49,7 +56,7 @@ mod tests {
 	#[test]
 	fn test_blank_node_label() {
 		let result = BLANK_NODE_LABEL("_:abc.a").unwrap();
-		assert_eq!(result, "_:abc.a");
+		assert_eq!(result, "abc.a");
 	}
 
 	#[test]
@@ -71,10 +78,10 @@ mod tests {
 	}
 
 	#[test]
-	fn test_literal() {
-		let literal1: Literal = literal("\"This has a language tag\"@en-gb").unwrap();
-		assert_eq!(literal1.get_data(), "This has a language tag");
-		let type_lang: &TypeLang = literal1.get_type();
+	fn test_literal_lang() {
+		let literal: Literal = literal("\"This has a language tag\"@en-gb").unwrap();
+		assert_eq!(literal.get_data(), "This has a language tag");
+		let type_lang: &TypeLang = literal.get_type();
 		println!("type: {:?}", type_lang);
 		//if let Lang("en
 		let matches = match type_lang {
@@ -82,11 +89,14 @@ mod tests {
 			_ => false
 		};
 		assert_eq!(true, matches);
+	}
 
-		let literal2 = literal("\"This has a type tag\"^^<http://example.org/some_type>").unwrap();
-		assert_eq!(literal2.get_data(), "This has a type tag");
-		let type_lang2: &TypeLang = literal2.get_type();
-		let matches = match type_lang2 {
+	#[test]
+	fn test_literal_type() {
+		let literal = literal("\"This has a type tag\"^^<http://example.org/some_type>").unwrap();
+		assert_eq!(literal.get_data(), "This has a type tag");
+		let type_lang: &TypeLang = literal.get_type();
+		let matches = match type_lang {
 			&Type(ref tipe) => tipe == "http://example.org/some_type",
 			_ => false
 		};
@@ -97,7 +107,26 @@ mod tests {
 	fn test_predicate() {
 		let predicate: Predicate = predicate("<http://example.org/predicate>").unwrap();
 		let matches = match predicate {
-			IriRef(iri) => iri == "http://example.org/predicate",
+			Predicate::IriRef(iri) => iri == "http://example.org/predicate"
+		};
+		assert_eq!(matches, true);
+	}
+
+	#[test]
+	fn test_subject_iri() {
+		let subject: Subject = subject("<http://example.org/subject>").unwrap();
+		let matches = match subject {
+			Subject::IriRef(iri) => iri == "http://example.org/subject",
+			_ => false
+		};
+		assert_eq!(matches, true);
+	}
+
+	#[test]
+	fn test_subject_bnode() {
+		let subject: Subject = subject("_:bnode").unwrap();
+		let matches = match subject {
+			Subject::BlankNode(bnode_label) => bnode_label == "bnode",
 			_ => false
 		};
 		assert_eq!(matches, true);
