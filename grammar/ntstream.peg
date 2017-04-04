@@ -1,16 +1,23 @@
 use std::char::from_u32;
-use super::{Literal, TypeLang, Predicate, Subject};
+use super::{Literal, TypeLang, Predicate, Subject, Object};
 
 #[pub]
 //[3]
 subject -> Subject
 	= iri: IRIREF { Subject::IriRef(iri) }
-	/ bnode: BLANK_NODE_LABEL { Subject::BlankNode(String::from(bnode)) }
+	/ bnode: BLANK_NODE_LABEL { Subject::BNode(String::from(bnode)) }
 
 #[pub]
 //[4]
 predicate -> Predicate
 	= iri: IRIREF {	Predicate::IriRef(iri) }
+
+#[pub]
+// 5
+object -> Object
+	= iri: IRIREF { Object::IriRef(iri) }
+	/ bnode: BLANK_NODE_LABEL { Object::BNode(String::from(bnode)) }
+	/ lit: literal { Object::Lit(lit) }
 
 #[pub]
 //[6]

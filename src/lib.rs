@@ -3,12 +3,19 @@ mod ntstream {
 	#[derive(Debug)]
 	pub enum Subject {
 		IriRef(String),
-		BlankNode(String)
+		BNode(String)
 	}
 
 	#[derive(Debug)]
 	pub enum Predicate {
 		IriRef(String)
+	}
+
+	#[derive(Debug)]
+	pub enum Object {
+		IriRef(String),
+		BNode(String),
+		Lit(Literal)
 	}
 
 	#[derive(Debug)]
@@ -44,6 +51,7 @@ mod tests {
 	use ntstream::Literal;
 	use ntstream::Predicate;
 	use ntstream::Subject;
+	use ntstream::Object;
 	use ntstream::TypeLang::{self, Lang, Type};
 	use ntstream::parser::*;
 
@@ -82,8 +90,6 @@ mod tests {
 		let literal: Literal = literal("\"This has a language tag\"@en-gb").unwrap();
 		assert_eq!(literal.get_data(), "This has a language tag");
 		let type_lang: &TypeLang = literal.get_type();
-		println!("type: {:?}", type_lang);
-		//if let Lang("en
 		let matches = match type_lang {
 			&Lang(ref lang) => lang == "en-gb",
 			_ => false
@@ -126,9 +132,48 @@ mod tests {
 	fn test_subject_bnode() {
 		let subject: Subject = subject("_:bnode").unwrap();
 		let matches = match subject {
-			Subject::BlankNode(bnode_label) => bnode_label == "bnode",
+			Subject::BNode(bnode_label) => bnode_label == "bnode",
 			_ => false
 		};
 		assert_eq!(matches, true);
 	}
+
+	#[test]
+	fn test_object_iri() {
+		let object: Object = object("<http://example.org/object>").unwrap();
+		let matches = match object {
+			Object::IriRef(iri) => iri == "http://example.org/object",
+			_ => false
+		};
+		assert_eq!(matches, true);
+	}
+
+	#[test]
+	fn test_object_bnode() {
+		let object: Object = object("_:bnode").unwrap();
+		let matches = match object {
+			Object::BNode(bnode_label) => bnode_label == "bnode",
+			_ => false
+		};
+		assert_eq!(matches, true);
+	}
+
+	#[test]
+	fn test_object_literal() {
+		let object: Object = object("\"0.95\"^^<my::float::type>").unwrap();
+		let matches = match object {
+			Object::Lit(literal) => {
+				let data = literal.get_data();
+				let type_lang = literal.get_type();
+				let matches_type = match type_lang {
+					&Type(ref tipe) => tipe == "my::float::type",
+					_ => false
+				};
+				matches_type && data == "0.95"
+			},
+			_ => false
+		};
+		assert_eq!(matches, true);
+	}
+
 }
