@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
 	use ntstream::{Literal, Predicate, Subject, Object, Triple};
-	use ntstream::TypeLang::{self, Lang, Type};
+	use ntstream::TypeLang::{Lang, Type};
 	use ntstream::parser::*;
 
 	#[test]
@@ -37,10 +37,9 @@ mod tests {
 	#[test]
 	fn test_literal_lang() {
 		let literal: Literal = literal("\"This has a language tag\"@en-gb").unwrap();
-		assert_eq!(literal.get_data(), "This has a language tag");
-		let type_lang: &TypeLang = literal.get_type();
-		let matches = match type_lang {
-			&Lang(ref lang) => lang == "en-gb",
+		assert_eq!(literal.data, "This has a language tag");
+		let matches = match literal.data_type {
+			Lang(lang) => lang == "en-gb",
 			_ => false
 		};
 		assert_eq!(true, matches);
@@ -49,10 +48,9 @@ mod tests {
 	#[test]
 	fn test_literal_type() {
 		let literal = literal("\"This has a type tag\"^^<http://example.org/some_type>").unwrap();
-		assert_eq!(literal.get_data(), "This has a type tag");
-		let type_lang: &TypeLang = literal.get_type();
-		let matches = match type_lang {
-			&Type(ref tipe) => tipe == "http://example.org/some_type",
+		assert_eq!(literal.data, "This has a type tag");
+		let matches = match literal.data_type {
+			Type(tipe) => tipe == "http://example.org/some_type",
 			_ => false
 		};
 		assert_eq!(matches, true);
@@ -112,13 +110,11 @@ mod tests {
 		let object: Object = object("\"0.95\"^^<my::float::type>").unwrap();
 		let matches = match object {
 			Object::Lit(literal) => {
-				let data = literal.get_data();
-				let type_lang = literal.get_type();
-				let matches_type = match type_lang {
-					&Type(ref tipe) => tipe == "my::float::type",
+				let matches_type = match literal.data_type {
+					Type(tipe) => tipe == "my::float::type",
 					_ => false
 				};
-				matches_type && data == "0.95"
+				matches_type && literal.data == "0.95"
 			},
 			_ => false
 		};
@@ -129,6 +125,7 @@ mod tests {
 	fn test_triple() {
 		let triple: Triple = triple("<http://dbpedia.org/resource/Algeria> <http://www.w3.org/2000/01/rdf-schema#comment> \"Algeria (Arabic: الجزائر<\\u200E> al-Jazā'ir; Berber: ⵍⵣⵣⴰⵢⴻⵔ Dzayer), officially People's Democratic Republic of Algeria\"@en . # some comments").unwrap();
 		println!("{:?}", triple);
+		//let subject = triple.subject;
 	}
 
 	#[test]

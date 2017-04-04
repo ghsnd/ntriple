@@ -2,9 +2,9 @@ pub mod ntstream {
 
 	#[derive(Debug)]
 	pub struct Triple {
-		subject: Subject,
-		predicate: Predicate,
-		object: Object
+		pub subject: Subject,
+		pub predicate: Predicate,
+		pub object: Object
 	}
 
 
@@ -34,19 +34,8 @@ pub mod ntstream {
 
 	#[derive(Debug)]
 	pub struct Literal {
-		data: String,
-		data_type: TypeLang
-	}
-
-	impl Literal {
-		pub fn get_data(&self) -> &str {
-			&self.data
-		}
-
-		pub fn get_type(&self) -> &TypeLang {
-			&self.data_type
-		}
-
+		pub data: String,
+		pub data_type: TypeLang
 	}
 
 	pub mod parser {
