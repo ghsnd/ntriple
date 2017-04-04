@@ -85,11 +85,11 @@ BLANK_NODE_LABEL -> &'input str
 UCHAR -> char
 	= '\\u' hexNr: $(HEX HEX HEX HEX) 
 		{
-			u32::from_str_radix(hexNr, 16).ok().and_then(from_u32).unwrap()/*.to_string().as_str()*/
+			u32::from_str_radix(hexNr, 16).ok().and_then(from_u32).unwrap()
 		}
 		/ '\\U' hexNr: $(HEX HEX HEX HEX HEX HEX)	// should be 8 HEXes, but rust can only handle 6...
 		{
-			u32::from_str_radix(hexNr, 16).ok().and_then(from_u32).unwrap()/*.to_string().as_str()*/
+			u32::from_str_radix(hexNr, 16).ok().and_then(from_u32).unwrap()
 		}
 
 // 153s
