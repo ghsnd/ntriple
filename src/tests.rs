@@ -5,9 +5,9 @@
 
 #[cfg(test)]
 mod tests {
-	use ntstream::{Literal, Predicate, Subject, Object, Triple};
-	use ntstream::TypeLang::{Lang, Type};
-	use ntstream::parser::*;
+	use {Literal, Predicate, Subject, Object, Triple};
+	use TypeLang::{Lang, Type};
+	use parser::*;
 
 	#[test]
 	fn test_uchar() {
