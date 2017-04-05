@@ -1,3 +1,8 @@
+/**
+ * Copyright 2017 Gerald Haesendonck
+ * Licensed under the Academic Free License version 3.0
+ **/
+
 // Parsing is based on https://www.w3.org/TR/n-triples/#n-triples-grammar
 
 use std::char::from_u32;

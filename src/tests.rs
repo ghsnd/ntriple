@@ -1,3 +1,8 @@
+/**
+ * Copyright 2017 Gerald Haesendonck
+ * Licensed under the Academic Free License version 3.0
+ **/
+
 #[cfg(test)]
 mod tests {
 	use ntstream::{Literal, Predicate, Subject, Object, Triple};
