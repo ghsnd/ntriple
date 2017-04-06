@@ -1,7 +1,6 @@
-/**
- * Copyright 2017 Gerald Haesendonck
- * Licensed under the Academic Free License version 3.0
- **/
+// Copyright 2017 Gerald Haesendonck
+// Licensed under the Academic Free License version 3.0
+
 
 
 #[derive(Debug)]
