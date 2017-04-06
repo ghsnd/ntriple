@@ -1,7 +1,7 @@
 // Copyright 2017 Gerald Haesendonck
 // Licensed under the Academic Free License version 3.0
 
-//! ntstream, a library to parse N-Triples on a per string basis.
+//! ntriple, a library to parse N-Triples on a per string basis.
 //!
 //! # Examples
 //!
@@ -15,8 +15,8 @@
 //! `Option` and directly returns a `ParseResult<Triple>`.
 //!
 //! ```
-//!use ntstream::parser::triple_line;
-//!use ntstream::{Subject, Predicate, Object};
+//!use ntriple::parser::triple_line;
+//!use ntriple::{Subject, Predicate, Object};
 //!
 //!fn main() {
 //!
@@ -112,7 +112,7 @@ pub struct Literal {
 
 pub mod parser {
 	//! Generated code.
-	include!(concat!(env!("OUT_DIR"), "/ntstream.rs"));
+	include!(concat!(env!("OUT_DIR"), "/ntriple.rs"));
 }
 
 

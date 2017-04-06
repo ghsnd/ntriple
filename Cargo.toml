@@ -4,7 +4,7 @@
  ##
 
 [package]
-name = "ntstream"
+name = "ntriple"
 version = "0.1.0"
 authors = ["Gerald Haesendonck <gerald.haesendonck@ugent.be>"]
 build = "build.rs"
