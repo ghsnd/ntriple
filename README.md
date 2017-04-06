@@ -1,4 +1,5 @@
 # ntriple
+[![Build Status](https://travis-ci.org/ghsnd/ntriple.svg?branch=master)](https://travis-ci.org/ghsnd/ntriple)
 
 A parser that parses a single RDF statement, in RDF [N-Triples](https://www.w3.org/TR/n-triples/) format.
 
