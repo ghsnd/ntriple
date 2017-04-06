@@ -55,4 +55,5 @@ fn main() {
     // a parse error: the input is no valid triple, comment, empty string or whitespace(s)
     Err(error) => println!("{}\n{}", input, error),
   };
+}
 ```
