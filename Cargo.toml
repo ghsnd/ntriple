@@ -5,7 +5,7 @@
 
 [package]
 name = "ntriple"
-version = "0.1.0"
+version = "0.1.1"
 description = "A simple RDF N-Triples parser"
 repository = "https://github.com/ghsnd/ntriple"
 homepage = "https://github.com/ghsnd/ntriple"
@@ -18,7 +18,7 @@ authors = ["Gerald Haesendonck"]
 build = "build.rs"
 
 [badges]
-travis-ci = { repository = "https://travis-ci.org/ghsnd/ntriple"}
+travis-ci = { repository = "ghsnd/ntriple"}
 
 [build-dependencies]
 peg = "0.5"
