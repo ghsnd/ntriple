@@ -58,3 +58,7 @@ fn main() {
   };
 }
 ```
+You can also parse the building blocks of a triple (e.g. only a literal, or only a predicate, etc.). See the [tests](src/tests.rs) for more examples.
+
+## API documentation
+The full API documentation can be found [here](https://ghsnd.github.io/ntriple_0.1/ntriple/index.html).
