@@ -21,7 +21,7 @@ build = "build.rs"
 travis-ci = { repository = "ghsnd/ntriple"}
 
 [build-dependencies]
-peg = "0.5"
+peg = "0.5.4"
 
 [profile.doc]
 opt-level = 0
