@@ -9,7 +9,7 @@ their [RDF lexical form](https://www.w3.org/TR/rdf11-concepts/#dfn-lexical-form)
 
 The purpose of this library is to process triples in a streaming way, so it doesn't build
 an [RDF Graph](https://www.w3.org/TR/2014/REC-rdf11-concepts-20140225/#section-rdf-graph).
-If you are looking for libraries that do, take a look at
+If you are looking for libraries that do, take a look at [rdf](https://www.crates.io/crates/rdf) or
 [rust-ntriples](https://github.com/enex/rust-ntriples/) or [rome](https://github.com/vandenoever/rome).
 
 ## Example:
