@@ -1,6 +1,8 @@
 # ntriple
 [![Build Status](https://travis-ci.org/ghsnd/ntriple.svg?branch=master)](https://travis-ci.org/ghsnd/ntriple)
 
+**Deprecated.** [rudf](https://github.com/Tpt/rudf) offers the same functionality and more.
+
 A parser that parses a single RDF statement, in RDF [N-Triples](https://www.w3.org/TR/n-triples/) format.
 
 It is written in [Rust](https://www.rust-lang.org/en-US/) and uses [rust-peg](https://github.com/kevinmehall/rust-peg)
